@@ -23,6 +23,7 @@ def calculate_average_grades(list_students):  # *bonus 1*
     # "Return a tuple containing the average grades per subject and the overall average grade."
     # and 'a tuple' I did return
 
+
 def calculate_failing_grades(students): # *bonus 2*
     """
     Returns: 1. a dictionary where each key is the student’s
@@ -54,6 +55,7 @@ def calculate_failing_grades(students): # *bonus 2*
     return failed_grades_per_student_dict, total_failed_grades
 
 """ ^^^ bonus functions ^^^ """
+
 
 def get_grade(subject):
     """
