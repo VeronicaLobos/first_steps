@@ -1,3 +1,4 @@
+import sys
 from itertools import islice
 from load_data import load_data
 all_data = load_data()
@@ -85,6 +86,7 @@ def command_dispatcher(command): # Bonus Step 1
     'show_countries': show_countries,
     'top_countries': top_countries,
     'ships_per_type': ships_per_type,
+    'exit': sys.exit,
   }
 
   arguments = command.split()
@@ -101,11 +103,12 @@ def help_command():
   """
   Prints a list of the available commands
   """
-  print('Available commands:')
+  print('\nAvailable commands:')
   print(' help')
   print(' show_countries')
   print(' top_countries <num_countries>')
   print(' ships_per_type')
+  print(' exit')
 
 
 def main():
@@ -120,7 +123,9 @@ def main():
       help_command()
       command = input()
       command_dispatcher(command)
-      return "Bye"
+      print("\nEnter 'help' to view available commands.")
+    else:
+      print("Enter 'help' to view available commands.")
 
 
 if __name__ == '__main__':
