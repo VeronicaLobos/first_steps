@@ -9,3 +9,10 @@ Basics of Python programming.
 ## Proficient Python
 
 Learning to separate functions in small chunks and calling them from main.
+
+## Advanced Python Syntax
+
+
+
+## Intro to Front-End
+### Home Solutions

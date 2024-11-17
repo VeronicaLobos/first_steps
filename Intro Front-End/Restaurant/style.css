@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: ;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #414141;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#container {
+    border: 70px solid #4b725f;
+    background-color: #F5F5F0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+    height: 80%;
+}
+
+.card {
+    height: 400px;
+    width: 300px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.card:hover .lower-slide, .card:hover .upper-slide {
+    transform: none;
+}
+
+.card:hover i {
+    opacity: 0;
+}
+
+.card:hover .overlay {
+    opacity: 0;
+    background-color: rgba(55,138,92,0);
+
+}
+
+.slide {
+    height: 50%;
+    width: 100%;
+    position: relative;
+    transition: 0.3s;
+}
+
+.upper-slide {
+    background-size: cover;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(50%);
+    z-index: 10;
+}
+
+.lower-slide {
+    background-color: rgb(249, 246, 240);
+    padding: 40px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
+}
+
+#drinks-slide {
+    background-image: url("https://s3.ppllstatics.com/elnortedecastilla/www/multimedia/2023/12/01/dorueda-kkTE--1920x1080@El%20Norte.jpg");
+}
+
+#entrees-slide {
+    background-image: url("https://www.jordanwinery.com/wp-content/uploads/2024/04/2024-4-15-Jordan-Winery-Salmon-Lox-Caviar-Champagne-Recipe-scaled-e1713908905553-1024x536.jpg");
+}
+
+#desserts-slide {
+    background-image: url("https://img.freepik.com/premium-photo/tremendous-chocolate-coulant-dessert-with-ice-cream-balls_461960-1379.jpg");
+}
+
+.lower-slide p, .lower-slide h3 {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.decorative-line {
+    background-color: #009b50;
+    height: 4px;
+    width: 30px;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.upper-slide .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(55,138,92,0.9);
+    transition: 0.3s;
+}
+
+.upper-slide i {
+    color: white;
+    font-size: 50px;
+    z-index: 15;
+    transition: 0.2s;
+}
+
+@media (max-width: 1024px) {
+    #container {
+        width: 80%;
+        border-width: 60px;
+    }
+}
+
+@media (max-width: 900px) {
+    #container {
+        width: 85%;
+        border-width: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        align-content: flex-start;
+    }
+    
+    #container {
+        margin-top: 40px;
+        flex-direction: column;
+        height: auto;
+        gap: 0;
+    }
+
+    .card {
+        width: 80%;
+    }
+
+    .card:nth-child(2) {
+        margin: -100px 0;
+    }
+}
