@@ -75,30 +75,6 @@ def get_nationalities():
   return nationalities
 
 
-def command_dispatcher(command): # Bonus Step 1
-  """
-  A dictionary of commands. When the parameter contains
-  a function name and a number, splits it into two arguments
-  before function call
-  """
-  command_dict = {
-    'help': help_command,
-    'show_countries': show_countries,
-    'top_countries': top_countries,
-    'ships_per_type': ships_per_type,
-    'exit': sys.exit,
-  }
-
-  arguments = command.split()
-  command_name = arguments[0]
-
-  if command_name in command_dict:
-    if len(arguments) > 1:
-      command_dict[command_name](arguments[1])
-    else:
-      command_dict[command_name]()
-
-
 def help_command():
   """
   Prints a list of the available commands
@@ -111,6 +87,63 @@ def help_command():
   print(' exit')
 
 
+def command_dispatcher(arguments): # Bonus Step 1
+  """
+  Takes a list of arguments and evaluates them in order to call a function
+  from those in the command dictionary.
+  """
+  keys = []
+  for key in command_dict().keys():
+    keys.append(key)
+
+  if arguments[0] not in keys:
+    print(f"Command '{arguments[0]}' currently not available, please try another command: ")
+  else:
+    if len(arguments) > 1:
+      try:
+        command_dict()[arguments[0]](arguments[1])
+      except TypeError as e:
+        print(f"{e}: '{arguments[1]}'")
+    else:
+      try:
+        command_dict()[arguments[0]]()
+      except TypeError as e:
+        print(f"{e}: ")
+
+
+def command_dict():
+  """
+  Returns a dictionary whose values are the commands available
+  to the user in the CLI
+  """
+  command_dictionary = {
+    'help': help_command,
+    'show_countries': show_countries,
+    'top_countries': top_countries,
+    'ships_per_type': ships_per_type,
+    'exit': sys.exit,
+     }
+  return command_dictionary
+
+
+def check_user_input():
+  """
+  Checks user input and returns a list of arguments
+  """
+  while True:
+    try:
+      user_input = input().lower().split()
+      if len(user_input) > 0:
+        return user_input
+      else:
+        print("Please enter a valid input: ")
+        continue
+    except (IndexError, UnboundLocalError, TypeError) as e:
+      print("Invalid input, please choose a valid command or enter 'help': ")
+      print(e)
+      continue
+
+
 def main():
   """
   A command line interface with a command_dispatcher
@@ -118,14 +151,8 @@ def main():
   """
   print("Welcome to the Ships CLI! Enter 'help' to view available commands.")
   while True:
-    user_input = input().lower()
-    if user_input == 'help':
-      help_command()
-      command = input()
-      command_dispatcher(command)
-      print("\nEnter 'help' to view available commands.")
-    else:
-      print("Enter 'help' to view available commands.")
+    arguments = check_user_input()
+    command_dispatcher(arguments)
 
 
 if __name__ == '__main__':
