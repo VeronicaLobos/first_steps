@@ -24,7 +24,7 @@ def main():
     print(make_query.url)
     # one option is to get the html text in a single line
     print(make_query.content)
-    # another option is to get the html with line breaks
+    # another option is to get the html parsed with line breaks
     print(make_query.text)
 
     print("\t\t\t*** Success! ***")
