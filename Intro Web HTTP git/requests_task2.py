@@ -1,3 +1,5 @@
+from linecache import clearcache
+
 import requests as req
 
 URL = "https://learningserver.masterschool.com/http-basics/post-me"
