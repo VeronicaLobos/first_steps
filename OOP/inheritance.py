@@ -45,8 +45,12 @@ class GasCar(Car):
     CONSUMPTION_RATE = 0.08
 
     def __init__(self, gallons):
+        """
+        Inherits the odometer instance value from Car
+        Fuel volume required before driving
+        """
+        super().__init__()
         self.fuel = gallons  # 20 - 60gal
-        self.odometer = 0
 
     def drive(self, miles):
         """
@@ -80,8 +84,12 @@ class ElectricCar(Car):
     CONSUMPTION_RATE = 0.2
 
     def __init__(self, kwh):
+        """
+        Inherits the odometer instance value from Car
+        Battery charge required before driving
+        """
+        super().__init__()
         self.battery = kwh  # 20.000 - 140.000 kwh
-        self.odometer = 0
 
     def drive(self, miles):
         """
