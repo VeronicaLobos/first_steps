@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 
 """
 Car is the 'Parent class' or 'Superclass'.
@@ -6,27 +8,27 @@ be inherited by a 'Child class' (also called
 'Subclass' or "Derived class'.
 """
 
-class Car:
+class Car(ABC):
     """
     A Car superclass stores and shows the miles driven.
     Instantiated cars have driven 0 miles.
     """
     def __init__(self):
-        self.odometer = 0
+        self._odometer = 0
 
-    def drive(self, miles):
+    @abstractmethod
+    def drive(self, distance):
         """
         Is given a distance in miles and will update
         the odometer of the instance by adding it.
         """
-        distance = miles
-        self.odometer = self.odometer + distance
+        self._odometer = self._odometer + distance
 
     def show_odometer(self):
         """
         Prints the miles driven by the Car instance.
         """
-        print(f"Odometer: {self.odometer} miles traveled.")
+        print(f"Odometer: {self._odometer} miles traveled.")
 
 
 """
@@ -46,33 +48,34 @@ class GasCar(Car):
 
     def __init__(self, gallons):
         """
-        Inherits the odometer instance value from Car
-        Fuel volume required before driving
+        Odometer logic is maintained, behold abstraction!
+        Fuel volume now required.
         """
         super().__init__()
-        self.fuel = gallons  # 20 - 60gal
+        self.__fuel = gallons  # 20 - 60gal
 
-    def drive(self, miles):
+    def drive(self, distance):
         """
-        Overrides the ihherited instance method.
-        This car consumes 0.08 galons for every mile.
+        Overrides the inherited instance method.
+        This car consumes 0.08 gallons for every mile.
+        Updates odometer.
         """
-        fuel_consumed = miles * GasCar.CONSUMPTION_RATE
-        self.fuel -= fuel_consumed
-        self.odometer += miles
+        fuel_consumed = distance * GasCar.CONSUMPTION_RATE
+        self.__fuel -= fuel_consumed
+        super().drive(distance)
 
     def show_fuel_tank(self):
         """
         Prints the amount of gallons left in the fuel tank.
         """
-        print(f"Fuel tank: {self.fuel} gallon(s) left.")
+        print(f"Fuel tank: {self.__fuel} gallon(s) left.")
 
-    def fill_tank(self, galons: int):
+    def fill_tank(self, gallons: int):
         """
         Fills the fuel tank.
         """
-        self.fuel += galons
-        print(f"Car refilled with {galons} galon(s).")
+        self.__fuel += gallons
+        print(f"Car refilled with {gallons} gallon(s).")
 
 
 class ElectricCar(Car):
@@ -85,26 +88,27 @@ class ElectricCar(Car):
 
     def __init__(self, kwh):
         """
-        Inherits the odometer instance value from Car
-        Battery charge required before driving
+        Inherits the odometer instance value from Car.
+        Battery charge required before driving.
         """
         super().__init__()
-        self.battery = kwh  # 20.000 - 140.000 kwh
+        self.__battery = kwh  # 20.000 - 140.000 kwh
 
-    def drive(self, miles):
+    def drive(self, distance):
         """
         Overrides the ihherited instance method.
         This car consumes 0.2 kwh for every mile.
+        Updates odometer.
         """
-        energy_consumed = miles * ElectricCar.CONSUMPTION_RATE
-        self.battery -= ElectricCar.CONSUMPTION_RATE
-        self.odometer += miles
+        energy_consumed = distance * ElectricCar.CONSUMPTION_RATE
+        self.__battery -= energy_consumed
+        super().drive(distance)
 
     def show_battery(self):
         """
         Prints the amount of kwh left in the battery.
         """
-        print(f"Battery: {self.battery} kwh(s) left.")
+        print(f"Battery: {self.__battery} kwh(s) left.")
 
     def charge_battery(self, hours):
         """
@@ -112,7 +116,7 @@ class ElectricCar(Car):
         """
         electric_power = 8  # kw
         charge = electric_power * hours
-        self.battery += charge  # kwh
+        self.__battery += charge  # kwh
         print(f"Car charged for {hours} hour(s).")
 
 
