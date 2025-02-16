@@ -1,42 +1,85 @@
+from itertools import chain
 
-def check_words(target, words):
-    """
-    Receives a list of words, checks for a match with the
-    words from another list.
-    Prints a message indicating if it found a match or not.
-    """
-    for word in words:
-        if word in target:
-            print("Word found!")
-            break
+"""
+Programming an ELIZA clone.
+0. Welcomes the user and requests input
+1. Asks for input
+1.1 Checks if user wants to exit the program
+2. Checks for certain words in user input
+2.1 Creates custom prompt based on user input
+3. Updates the prompt
+"""
 
-    print("Word not found!")
+# Prints a welcome message, plus instructions
+print("HELLO, I AM ELIZA. I'LL BE YOUR THERAPIST TODAY.")
+print("(ENTER 'q' ANYTIME TO QUIT)")
 
-def main():
-    # Prints a welcome message"
-    print("Hello, I am Eliza. I'll be your therapist today.")
+# Sets prompt with a default message
+prompt = "Is anything troubling you?"
 
-    # Sets prompt with a default message
-    prompt = "Tell me your problem (or 'q' anytime to quit): "
+# Sets lists of words we will search for in the input
+noun_keywords = set(["mother", "Python", "the sandman"])
+verb_keywords = set(["avoid", "worry", "fear", "think"])
+pronouns = {
+    " I ": " you ",
+    " you ": " I ",
+    " you": " me",  # usually at the end of a sentence
+    " my ": " your ",
+    " your ": " my ",
+    " me": " you",
+    " are ": " am ",
+}
 
-    # Sets a list of words to look for in user input
-    keywords = set(["avoid", "worry", "fear"])
+# Keeps asking user for input...
+while True:
+    problem = input(prompt.upper() + "\n>> ")
 
-    # Keeps prompting the user...
-    while True:
-        user_problem = input(prompt)
+    # ...until user enters "q"
+    if problem == "q":
+        print("See you in the next session!")
+        break
 
-        # until user inputs "q"
-        if user_problem.lower() == "q":
-            print("See you next time.")
-            break
+    # If the input is empty it will encourage the user to write
+    if problem == "":
+        prompt = "Our conversation is confidential, you can talk to me."
+        continue
 
-        # Makes a list of words from input
-        words_in_problem = user_problem.split(" ")
+    # Sets prompt with another default message in case the user
+    # input doesn't match any of the following criteria
+    prompt = "Tell me more."
 
-        # Calls a word checker
-        check_words(keywords, words_in_problem)
+    # Checks for verb keywords to create a custom reply
+    # this will overwrite the default prompt
+    for keyword in verb_keywords:
+        if keyword in problem:
+            # ... slices from the first character in said keyword
+            start = problem.find(keyword)
+            # ... until the first dot it finds
+            end = problem.find(".")
+            # ... unless there is no dot
+            if end == -1:
+                end = len(problem)
+            custom_reply = problem[start:end]
 
+            replaced_pronouns = []
+            # ... if there are pronouns in the verb custom reply *BONUS*
+            for pronoun, new_pronoun in pronouns.items():
+                if pronoun in custom_reply:
+                    if pronoun not in replaced_pronouns:
+                        # ... replaces them
+                        custom_reply = custom_reply.replace(pronoun, new_pronoun)
+                        # while keeping track of the ones already replaced
+                        replaced_pronouns.append(new_pronoun)
+                        # note: the spacing in the pronouns is relevant, to avoid
+                        # words like 'care' and 'your' from turning into 'cam'
+                        # or 'Ir', see pronouns dict
 
-if __name__ == "__main__":
-    main()
+            # finally updates the next prompt with a custom reply based
+            # on the user input
+            prompt = f"Why do you {custom_reply}?"
+
+    # Checks for noun keywords to create a custom reply, this will
+    # overwrite any previous default or custom prompt
+    for keyword in noun_keywords:
+        if keyword in problem:
+            prompt = f"What made you think of {keyword}?"
