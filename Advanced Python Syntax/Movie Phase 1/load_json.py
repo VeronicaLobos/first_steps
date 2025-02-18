@@ -1,21 +1,35 @@
 import json
 import os
 
+FILE_NAME = "movies.json"
 
-def load_json(filepath="movies.json"):
+"""This module contains functions for reading and writing the 
+movie data base. These are called by the functions in the
+movie_storage module."""
+
+def update_json(updated_movie_data):
     """
-    Loads a json file containing data about movies.
+    Loads a json file containing data about movies in
+    writing mode.
+    """
+    with open(file=FILE_NAME, mode='w', encoding="utf-8") as handle:
+        json.dump(updated_movie_data, handle, indent=4)
+
+
+def load_json(filepath=FILE_NAME):
+    """
+    Loads a json file containing data about movies in
+    reading mode.
     
-    Checks if the file exists. Ff it doesn't, creates
+    Checks if the file exists. If it doesn't, creates
     and populates a new json file with example data.
-    
+
     Handles errors by returning an empty dictionary.
     
     Returns a dictionary where keys = movie titles, 
     values = dictionaries with movie attributes like
     rating and release year).
     """
-
     movie_dict_example = {
         "Titanic": {
             "rating": 9,

@@ -11,7 +11,7 @@ def command_dispatcher(user_input):
     commands = {
         0: exit,  # tested
         1: movie_storage.list_movies, # tested
-        2: movie_storage.add_movie,
+        2: movie_storage.add_movie, # tested
         3: movie_storage.delete_movie,
         4: movie_storage.update_movie,
         5: "Stats",
@@ -79,6 +79,7 @@ def main():
     while True:
         user_input = check_input()
         command_dispatcher(user_input)
+        input("\nPress enter to continue")
 
 
 if __name__ == "__main__":

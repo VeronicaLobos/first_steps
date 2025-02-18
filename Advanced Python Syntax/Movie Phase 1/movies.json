@@ -2,5 +2,9 @@
     "Titanic": {
         "rating": 9,
         "year": 1999
+    },
+    "Sonic": {
+        "rating": 4,
+        "year": 1999
     }
 }
