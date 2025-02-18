@@ -11,6 +11,8 @@ def update_json(updated_movie_data):
     """
     Loads a json file containing data about movies in
     writing mode.
+
+    (...)
     """
     with open(file=FILE_NAME, mode='w', encoding="utf-8") as handle:
         json.dump(updated_movie_data, handle, indent=4)

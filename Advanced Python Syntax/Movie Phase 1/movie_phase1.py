@@ -12,7 +12,7 @@ def command_dispatcher(user_input):
         0: exit,  # tested
         1: movie_storage.list_movies, # tested
         2: movie_storage.add_movie, # tested
-        3: movie_storage.delete_movie,
+        3: movie_storage.delete_movie, # tested
         4: movie_storage.update_movie,
         5: "Stats",
         6: "Random movie",

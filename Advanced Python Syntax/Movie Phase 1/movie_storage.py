@@ -1,10 +1,11 @@
-import load_json
+import handle_json
+import re
 
 """
-Loads into a constant a dictionary of dictionaries that
+Preloads into a constant a dictionary of dictionaries that
 contains the movies information in the database.
 """
-MOVIE_DATA = load_json.load_json()
+MOVIE_DATA = handle_json.load_json()
 
 
 def list_movies():
@@ -25,17 +26,16 @@ def list_movies():
 
 def add_movie():
     """
-    Adds a movie to the movies database.
+    Adds a movie to the movie database.
     Creates a dictionary with the new movie data,
-    but first checks if the movie is already in the database
-    and checks user input for wrong data types, keeps prompting
-    the user for valid input.
+    but first checks if the movie is already in the database,
+    and then, checks user input for wrong data types, keeps
+    prompting the user for valid input.
 
-    Loads the information from the JSON file, add the movie,
-    and saves it. The function doesn't need to validate the input.
+    (...)
     """
 
-    """Get new movie title"""
+    """1. Get new movie title"""
     while True:
         new_movie_title = input("Enter new movie name: ").strip(".")
         if not new_movie_title:
@@ -45,60 +45,76 @@ def add_movie():
             print("Title must be a string.")
             continue
         if new_movie_title in MOVIE_DATA.keys():
-            print(f"{new_movie_title} already exists in database.")
+            print(f"{new_movie_title} already exists in the database.")
             continue
         break
 
-    """Get new movie year"""
+    """2. Get new movie year"""
     while True:
         try:
-            new_movie_release_year = int(input("Enter new movie year: "))
-            if len(str(new_movie_release_year)) != 4:
+            new_movie_year = int(input("Enter new movie year: "))
+            if (len(str(new_movie_year))) != 4 or not (
+                    1894 <= new_movie_year <= 2030
+            ):
                 print("Please enter a valid year with four digits.")
                 continue
         except (ValueError, TypeError):
             print("Please enter a valid year with four digits.")
         break
 
-    """Get new movie rating"""
+    """3. Get new movie rating"""
     while True:
         try:
-            new_movie_rating = round(float(input("Enter new Movie rating: ")))
-            if not 0 <= new_movie_rating <= 10:
+            new_movie_rating = round(float(input("Enter new Movie rating: ")), 1)
+            if (not 0 <= new_movie_rating <= 10 and not \
+            re.fullmatch(r"^[0-9]+(\.[0-9]+)?$", new_movie_rating)):
                 print("Rating must be a valid number between 0.0 and 10.0")
                 continue
         except TypeError:
             print("Rating must be a valid number between 0.0 and 10.0")
         break
 
-    """Formats the input into a dictionary and updates MOVIE_DATA"""
+    """4. Formats the input into a dictionary and updates MOVIE_DATA"""
     MOVIE_DATA[new_movie_title] = {
         "rating": new_movie_rating,
-        "year": new_movie_release_year
+        "year": new_movie_year
         }
 
-    """Updates the data base with the newest version of MOVIE_DATA"""
-    load_json.update_json(MOVIE_DATA)
+    """5. Updates the data base with the newest version of MOVIE_DATA"""
+    handle_json.update_json(MOVIE_DATA)
 
-    """Checks if the new movie/dict was added to the database"""
+    """6. Checks if the new movie/dict was added to the database"""
     if new_movie_title in MOVIE_DATA:
         print(f"{new_movie_title} successfully added")
     else:
         print("Something went wrong")
 
 
-def delete_movie(title):
+def delete_movie():
     """
-    Deletes a movie from the movies database.
-    Loads the information from the JSON file, deletes the movie,
-    and saves it. The function doesn't need to validate the input.
+    Deletes a movie from the movie database.
+    Deletes the movie from the preloaded dict of dicts,
+    and updates the json file with it.
+
+    Prints a message to inform the user of the operation
+    result. Raises a KeyError if the movie cannot be found
+    in the database and thus, the operation cannot be
+    performed (still same result).
     """
-    pass
+    movie_title = input("Enter movie name to delete: ")
+    try:
+        del MOVIE_DATA[movie_title]
+        print(MOVIE_DATA)
+        if movie_title not in MOVIE_DATA:
+            handle_json.update_json(MOVIE_DATA)
+            print(f"Movie {movie_title} successfully deleted")
+    except KeyError:
+        print(f"Movie {movie_title} doesn't exist!")
 
 
-def update_movie(title, rating):
+def update_movie():
     """
-    Updates a movie from the movies database.
+    Updates a movie from the movie database.
     Loads the information from the JSON file, updates the movie,
     and saves it. The function doesn't need to validate the input.
     """
