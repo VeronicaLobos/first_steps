@@ -2,10 +2,89 @@ import handle_json
 import re
 
 """
-Preloads into a constant a dictionary of dictionaries that
-contains the movies information in the database.
+Preloads into a constant a dictionary of dictionaries
+with the movie information in the database.
 """
 MOVIE_DATA = handle_json.load_json()
+
+
+def _update_database():
+    """
+    A utility command for updating the database
+    """
+    handle_json.update_json(MOVIE_DATA)
+
+
+def _check_empty_dict():
+    if len(MOVIE_DATA) == 0:
+        return True
+    else:
+        return False
+
+
+def _movie_exists(movie_title):
+    """
+    A utility command for checking if a movie is
+    already in the database, if so returns True.
+    """
+    if movie_title in MOVIE_DATA:
+        return True
+    else:
+        return False
+
+
+def _check_title():
+    """
+    A utility command for checking the title
+    Keeps prompting for input
+    Returns a string
+    """
+    while True:
+        movie_title = input("Enter movie name: ")
+        if not movie_title:
+            print("Title cannot be empty.")
+            continue
+        break
+    return movie_title
+
+
+def _check_year():
+    """
+    A utility command for checking the year
+    Keeps prompting for input
+    Returns an integer
+    """
+    while True:
+        try:
+            movie_year = int(input("Enter new movie year: "))
+            if (len(str(movie_year))) != 4 or not (
+                    1894 <= movie_year <= 2030
+            ):
+                print("Please enter a valid year with four digits.")
+                continue
+        except (ValueError, TypeError):
+            print("Please enter a valid year with four digits.")
+        break
+    return movie_year
+
+
+def _check_rating():
+    """
+    A utility command for checking the rating
+    Keeps prompting for input
+    Returns a float, rounds to a single decimal
+    """
+    while True:
+        try:
+            movie_rating = round(float(input("Enter new Movie rating: ")), 1)
+            if not 0.0 <= movie_rating <= 10.0:
+                print("Rating must be a valid number between 0.0 and 10.0")
+                continue
+        except (ValueError, TypeError):
+            print("Rating must be a valid number between 0.0 and 10.0")
+            continue
+        break
+    return movie_rating
 
 
 def list_movies():
@@ -27,67 +106,25 @@ def list_movies():
 def add_movie():
     """
     Adds a movie to the movie database.
-    Creates a dictionary with the new movie data,
-    but first checks if the movie is already in the database,
-    and then, checks user input for wrong data types, keeps
-    prompting the user for valid input.
-
-    (...)
+    CHeck if the movie already exists.
+    Creates a dictionary with the new movie data.
     """
+    movie_title = _check_title()
 
-    """1. Get new movie title"""
-    while True:
-        new_movie_title = input("Enter new movie name: ").strip(".")
-        if not new_movie_title:
-            print("Title cannot be empty.")
-            continue
-        if not isinstance(new_movie_title, str):
-            print("Title must be a string.")
-            continue
-        if new_movie_title in MOVIE_DATA.keys():
-            print(f"{new_movie_title} already exists in the database.")
-            continue
-        break
-
-    """2. Get new movie year"""
-    while True:
-        try:
-            new_movie_year = int(input("Enter new movie year: "))
-            if (len(str(new_movie_year))) != 4 or not (
-                    1894 <= new_movie_year <= 2030
-            ):
-                print("Please enter a valid year with four digits.")
-                continue
-        except (ValueError, TypeError):
-            print("Please enter a valid year with four digits.")
-        break
-
-    """3. Get new movie rating"""
-    while True:
-        try:
-            new_movie_rating = round(float(input("Enter new Movie rating: ")), 1)
-            if (not 0 <= new_movie_rating <= 10 and not \
-            re.fullmatch(r"^[0-9]+(\.[0-9]+)?$", new_movie_rating)):
-                print("Rating must be a valid number between 0.0 and 10.0")
-                continue
-        except TypeError:
-            print("Rating must be a valid number between 0.0 and 10.0")
-        break
-
-    """4. Formats the input into a dictionary and updates MOVIE_DATA"""
-    MOVIE_DATA[new_movie_title] = {
-        "rating": new_movie_rating,
-        "year": new_movie_year
-        }
-
-    """5. Updates the data base with the newest version of MOVIE_DATA"""
-    handle_json.update_json(MOVIE_DATA)
-
-    """6. Checks if the new movie/dict was added to the database"""
-    if new_movie_title in MOVIE_DATA:
-        print(f"{new_movie_title} successfully added")
+    if _movie_exists(movie_title):
+        print(f"{movie_title} already exists in database")
     else:
-        print("Something went wrong")
+        MOVIE_DATA[movie_title] = {
+            "rating": _check_rating(),
+            "year": _check_year()
+            }
+
+        _update_database()
+
+        if _movie_exists(movie_title):
+            print(f"{movie_title} successfully added")
+        else:
+            print("Something went wrong, movie not added")
 
 
 def delete_movie():
@@ -101,22 +138,43 @@ def delete_movie():
     in the database and thus, the operation cannot be
     performed (still same result).
     """
-    movie_title = input("Enter movie name to delete: ")
+    if _check_empty_dict():
+        print("Currently there are no movies in the database")
+        return
+
+    movie_title = _check_title()
+
     try:
+        if not _movie_exists(movie_title):
+            raise KeyError(f"Movie {movie_title} doesn't exist!")
+
         del MOVIE_DATA[movie_title]
-        print(MOVIE_DATA)
-        if movie_title not in MOVIE_DATA:
-            handle_json.update_json(MOVIE_DATA)
-            print(f"Movie {movie_title} successfully deleted")
+        _update_database()
+        print(f"Movie {movie_title} successfully deleted")
     except KeyError:
         print(f"Movie {movie_title} doesn't exist!")
 
 
 def update_movie():
     """
-    Updates a movie from the movie database.
-    Loads the information from the JSON file, updates the movie,
-    and saves it. The function doesn't need to validate the input.
+    Updates a movie rating from the movie database.
+
+    Modifies the value in the preloaded dict of dicts,
+    and then updates the json file with it.
     """
-    pass
-  
+    if _check_empty_dict():
+        print("Currently there are no movies in the database")
+        return
+
+    movie_title = _check_title()
+
+    try:
+        if not _movie_exists(movie_title):
+            print(f"Movie {movie_title} doesn't exist!")
+            return
+        new_movie_rating = _check_rating()
+        MOVIE_DATA[movie_title]["rating"] = new_movie_rating
+        _update_database()
+        print(f"Movie {movie_title} successfully updated")
+    except KeyError:
+        print(f"Movie {movie_title} doesn't exist!")

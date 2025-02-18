@@ -30,7 +30,7 @@ def load_json(filepath=FILE_NAME):
     
     Returns a dictionary where keys = movie titles, 
     values = dictionaries with movie attributes like
-    rating and release year).
+    rating and release year.
     """
     movie_dict_example = {
         "Titanic": {

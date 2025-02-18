@@ -13,7 +13,7 @@ def command_dispatcher(user_input):
         1: movie_storage.list_movies, # tested
         2: movie_storage.add_movie, # tested
         3: movie_storage.delete_movie, # tested
-        4: movie_storage.update_movie,
+        4: movie_storage.update_movie, # tested
         5: "Stats",
         6: "Random movie",
         7: "Search movie",
@@ -79,7 +79,7 @@ def main():
     while True:
         user_input = check_input()
         command_dispatcher(user_input)
-        input("\nPress enter to continue")
+        input("\nPress enter to continue ")
 
 
 if __name__ == "__main__":

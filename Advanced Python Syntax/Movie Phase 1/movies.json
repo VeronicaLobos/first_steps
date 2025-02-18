@@ -1,6 +1,6 @@
 {
     "Titanic": {
-        "rating": 4,
-        "year": 1997
+        "rating": 4.0,
+        "year": 1999
     }
 }
