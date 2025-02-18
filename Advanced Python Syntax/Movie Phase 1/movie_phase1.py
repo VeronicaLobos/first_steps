@@ -1,21 +1,15 @@
 import sys
-import json_load
 import movie_storage
 
 
-def command_dispatcher(arguments):
-
-    pass
-
-
-def command_dict(user_input):
+def command_dispatcher(user_input):
     """
     Returns a value from a dictionary pairing the
     menu options with the functions available to
     the user in the CLI
     """
     commands = {
-        0: sys.exit,
+        0: exit,  # tested
         1: movie_storage.list_movies,
         2: movie_storage.add_movie,
         3: movie_storage.delete_movie,
@@ -28,7 +22,7 @@ def command_dict(user_input):
         10: "Filter movies",
                 }
 
-    return commands[user_input]
+    return commands[user_input]()
 
 
 def check_input():
@@ -64,6 +58,11 @@ def print_menu():
     print(menu)
 
 
+def exit():
+    print("Bye!")
+    sys.exit()
+
+
 def main():
     """
     A command line interface with a command_dispatcher
@@ -79,7 +78,7 @@ def main():
 
     while True:
         user_input = check_input()
-        command_dispatcher(user_input, arguments)
+        command_dispatcher(user_input)
 
 
 if __name__ == "__main__":

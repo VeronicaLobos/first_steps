@@ -2,7 +2,7 @@ import json
 import os
 
 
-def load_json(filepath="movies.json")
+def load_json(filepath="movies.json"):
     """
     Loads a json file containing data about movies.
     
@@ -26,13 +26,14 @@ def load_json(filepath="movies.json")
     try:
         if not os.path.exists(filepath):
             with open(file=filepath, mode='w', encoding="utf-8") as handle:
-                json.dump(movie_example, handle)
+                json.dump(movie_dict_example, handle, indent=4)
 
-        with open(file=file_path, mode="r", encoding="utf-8") as handle:
+        with open(file=filepath, mode="r", encoding="utf-8") as handle:
             return json.load(handle)
+
     except FileNotFoundError:
-        print("File not found.")
+        print(f"{filepath} not found.")
         return {}
     except json.JSONDecodeError:
-        print("JSON file is corrupted")
+        print(f"{filepath} is corrupted")
         return {}

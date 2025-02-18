@@ -17,7 +17,7 @@ def list_movies():
     Titanic (1997): 7.9
     The Shawshank Redemption (1994): 9.3
     """
-
+    pass
 
 
 def add_movie(title, year, rating):
