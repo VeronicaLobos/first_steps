@@ -1,3 +1,8 @@
+import load_json
+
+MOVIE_DATA = load_json.load_json()
+
+
 def list_movies():
     """
     Returns a dictionary of dictionaries that
@@ -6,18 +11,13 @@ def list_movies():
     The function loads the information from the JSON
     file and returns the data. 
 
-    For example, the function may return:
-    {
-      "Titanic": {
-        "rating": 9,
-        "year": 1999
-      },
-      "..." {
-        ...
-      },
-    }
+
+    3 movies in total
+    In the Name of the Father (1993): 8.1
+    Titanic (1997): 7.9
+    The Shawshank Redemption (1994): 9.3
     """
-    pass
+
 
 
 def add_movie(title, year, rating):

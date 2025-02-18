@@ -1,10 +1,34 @@
-def command_dictionary():
-    """
-    Returns a dictionary pairing the menu options
-    with the functions available to the user in
-    the CLI
-    """
+import sys
+import json_load
+import movie_storage
+
+
+def command_dispatcher(arguments):
+
     pass
+
+
+def command_dict(user_input):
+    """
+    Returns a value from a dictionary pairing the
+    menu options with the functions available to
+    the user in the CLI
+    """
+    commands = {
+        0: sys.exit,
+        1: movie_storage.list_movies,
+        2: movie_storage.add_movie,
+        3: movie_storage.delete_movie,
+        4: movie_storage.update_movie,
+        5: "Stats",
+        6: "Random movie",
+        7: "Search movie",
+        8: "Movies sorted by rating",
+        9: "Movies sorted by year",
+        10: "Filter movies",
+                }
+
+    return commands[user_input]
 
 
 def check_input():
@@ -19,7 +43,6 @@ def check_input():
             user_input = int(input("Enter choice (0-10): "))
             assert 0 <= user_input <= 10
             return user_input
-            break
         except (ValueError, AssertionError):
             print("Invalid choice")
             continue
@@ -45,42 +68,19 @@ def main():
     """
     A command line interface with a command_dispatcher
     that performs SCRUM operations with a json file
+    1. Displays a title
+    2. Displays a menu with the operations available
+    3. Requests and checks input from user
+    4. Executes a command
+    5. Menu is displayed again, asks for input again
     """
     title = "********** My Movies Database **********"
     print(title)
 
     while True:
         user_input = check_input()
-        # command_dispatcher(user_input)
-
-
-
+        command_dispatcher(user_input, arguments)
 
 
 if __name__ == "__main__":
     main()
-
-"""
-### 1
-
-10 movies in total
-In the Name of the Father (1993): 8.1
-Titanic (1997): 7.9
-The Shawshank Redemption (1994): 9.3
-The Godfather (1972): 9.2
-The Dark Knight (2008): 9.0
-Schindler's List (1993): 8.9
-Forrest Gump (1994): 8.8
-Pulp Fiction (1994): 8.9
-The Matrix (1999): 1.0
-Fight Club (1999): 8.8
-
-Press enter to continue
-
-
-Title
-Rating
-Year of release
-
-
-"""
