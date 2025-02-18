@@ -10,7 +10,7 @@ def command_dispatcher(user_input):
     """
     commands = {
         0: exit,  # tested
-        1: movie_storage.list_movies,
+        1: movie_storage.list_movies, # tested
         2: movie_storage.add_movie,
         3: movie_storage.delete_movie,
         4: movie_storage.update_movie,

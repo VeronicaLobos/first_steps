@@ -1,23 +1,26 @@
 import load_json
 
+"""
+Loads into a constant a dictionary of dictionaries that
+contains the movies information in the database.
+"""
 MOVIE_DATA = load_json.load_json()
 
 
 def list_movies():
     """
-    Returns a dictionary of dictionaries that
-    contains the movies information in the database.
-
-    The function loads the information from the JSON
-    file and returns the data. 
-
-
-    3 movies in total
-    In the Name of the Father (1993): 8.1
-    Titanic (1997): 7.9
-    The Shawshank Redemption (1994): 9.3
+    1. Prints a string indicating how many movies are stored
+    in the database (how many dicts are in the dict).
+    2. Parses the info from MOVIE_DATA,
+    serializes it into a string, and prints it.
     """
-    pass
+
+    print(f"{len(MOVIE_DATA)} movie(s) in total")
+
+    for movie_title, movie_attributes in MOVIE_DATA.items():
+        movie_release_year = movie_attributes.get("year"): int
+        movie_rating = movie_attributes.get("rating"): float
+        print(f"{movie_title} ({movie_release_year}): {movie_rating}")
 
 
 def add_movie(title, year, rating):
