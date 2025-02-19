@@ -1,5 +1,6 @@
 import handle_json
 import statistics
+import random
 
 """
 Preloads into a constant a dictionary of dictionaries
@@ -52,6 +53,19 @@ def _get_bestworse_ratings(rated_movies, highest):
     return extremes_rate_movies
 
 
+def _get_rating_title():
+    """
+    A utility command for extracting all the titles and ratings
+    from the movie database.
+    Returns a list with tuples (rating, title).
+    """
+    rating_movies = []
+    for movie_title, movie_attributes in MOVIE_DATA.items():
+        rating_movies.append((movie_attributes['rating'],
+                              movie_title))
+    return rating_movies
+
+
 def show_stats():
     """
     Print statistics about the movies in the database:
@@ -77,10 +91,7 @@ def show_stats():
     print(f"Median rating: {median_rating}")
 
     #   3. Makes a list of tuples with movie ratings and titles
-    rating_movies = []
-    for movie_title, movie_attributes in MOVIE_DATA.items():
-        rating_movies.append((movie_attributes['rating'],
-                              movie_title))
+    rating_movies = _get_rating_title()
 
     #   4. Sorts the list of tuples from lowest to highest rating
     sorted_ratings_title = sorted(rating_movies,
@@ -95,3 +106,14 @@ def show_stats():
     worst_movies = _get_bestworse_ratings(sorted_ratings_title,
                                           highest=False)
     _print_bestworst(worst_movies, "Worst")
+
+
+def random_movie():
+    """
+    Prints the title and rating of a random movie
+    from the database.
+    """
+    rating_movies = _get_rating_title()
+    random_movie = random.choice(rating_movies)
+    print(f"Your movie for tonight: {random_movie[1]}, "
+          f"it's rated {random_movie[0]}")
