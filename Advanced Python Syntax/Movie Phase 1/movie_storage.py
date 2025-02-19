@@ -1,5 +1,5 @@
 import handle_json
-import re
+
 
 """
 Preloads into a constant a dictionary of dictionaries

@@ -1,5 +1,6 @@
 import sys
 import movie_storage
+import movie_stats
 
 
 def command_dispatcher(user_input):
@@ -14,7 +15,7 @@ def command_dispatcher(user_input):
         2: movie_storage.add_movie, # tested
         3: movie_storage.delete_movie, # tested
         4: movie_storage.update_movie, # tested
-        5: "Stats",
+        5: movie_stats.show_stats, # tested
         6: "Random movie",
         7: "Search movie",
         8: "Movies sorted by rating",

@@ -5,12 +5,19 @@ FILE_NAME = "movies.json"
 
 """This module contains functions for reading and writing the 
 movie data base. These are called by the functions in the
-movie_storage module."""
+movie_storage module.
+
+This program uses nested dictionaries and persistent data.
+The outer dictionary uses movie titles as keys, and each key
+maps to another dictionary containing movie attributes
+(year, rating). 
+"""
 
 def update_json(updated_movie_data):
     """
     Loads a json file containing data about movies in
     writing mode.
+
 
     (...)
     """

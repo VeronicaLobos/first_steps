@@ -1,6 +1,18 @@
 {
     "Titanic": {
-        "rating": 4.0,
+        "rating": 7.0,
         "year": 1999
+    },
+    "Sonic": {
+        "rating": 6.0,
+        "year": 2024
+    },
+    "Hola": {
+        "rating": 3.0,
+        "year": 2010
+    },
+    "Fruta": {
+        "rating": 7.0,
+        "year": 2005
     }
 }
