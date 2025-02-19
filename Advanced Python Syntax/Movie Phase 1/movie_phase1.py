@@ -16,8 +16,8 @@ def command_dispatcher(user_input):
         3: movie_storage.delete_movie, # tested
         4: movie_storage.update_movie, # tested
         5: movie_stats.show_stats, # tested
-        6: movie_stats.random_movie,
-        7: "Search movie",
+        6: movie_stats.random_movie, # tested
+        7: movie_stats.search_movie, # tested
         8: "Movies sorted by rating",
         9: "Movies sorted by year",
         10: "Filter movies",

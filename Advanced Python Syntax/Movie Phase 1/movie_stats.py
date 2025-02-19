@@ -117,3 +117,24 @@ def random_movie():
     random_movie = random.choice(rating_movies)
     print(f"Your movie for tonight: {random_movie[1]}, "
           f"it's rated {random_movie[0]}")
+
+
+def search_movie():
+    """
+    Asks the user to enter a part of a movie name,
+    and then searches all the movies in the database.
+    Prints all the movies that matched the user’s query,
+    along with the rating. If there is no match it will
+    print a message informing the user.
+    """
+    rating_movies = _get_rating_title()
+    search_term = input("Enter part of movie name: ").lower()
+    match_found = False
+
+    for rating, title in rating_movies:
+        if search_term in title.lower():
+            print(f"{title}, {rating}")
+            match_found = True
+
+    if not match_found:
+        print("Movie matching search term not found")
