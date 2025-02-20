@@ -3,8 +3,9 @@ import os
 
 FILE_NAME = "movies.json"
 
-"""This module contains functions for reading and writing the 
-movie data base. These are called by the functions in the
+"""This module contains functions to READ and WRITE the 
+movie data base (static JSON file). These are called by
+the functions in the
 movie_storage module.
 
 This program uses nested dictionaries and persistent data.
@@ -18,10 +19,10 @@ def update_json(updated_movie_data):
     Loads a json file containing data about movies in
     writing mode.
 
-
-    (...)
+    The data will be stored in a constant in other modules.
     """
-    with open(file=FILE_NAME, mode='w', encoding="utf-8") as handle:
+    with open(file=FILE_NAME, mode='w',
+              encoding="utf-8") as handle:
         json.dump(updated_movie_data, handle, indent=4)
 
 
@@ -38,6 +39,8 @@ def load_json(filepath=FILE_NAME):
     Returns a dictionary where keys = movie titles, 
     values = dictionaries with movie attributes like
     rating and release year.
+
+    Handles errors for missing or corrupted JSON file.
     """
     movie_dict_example = {
         "Titanic": {
@@ -48,10 +51,12 @@ def load_json(filepath=FILE_NAME):
 
     try:
         if not os.path.exists(filepath):
-            with open(file=filepath, mode='w', encoding="utf-8") as handle:
+            with open(file=filepath, mode='w',
+                      encoding="utf-8") as handle:
                 json.dump(movie_dict_example, handle, indent=4)
 
-        with open(file=filepath, mode="r", encoding="utf-8") as handle:
+        with open(file=filepath, mode="r",
+                  encoding="utf-8") as handle:
             return json.load(handle)
 
     except FileNotFoundError:

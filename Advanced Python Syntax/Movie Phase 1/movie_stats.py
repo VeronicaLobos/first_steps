@@ -3,13 +3,16 @@ import statistics
 import random
 
 """
-Preloads into a constant a dictionary of dictionaries
-with the movie information in the database.
+This module contains ONLY READ commands for 
+a JSON file containing nested dictionaries.
+
+Constant preloads nested dictionaries with 
+the movie information in the database.
 """
 MOVIE_DATA = handle_json.load_json()
 
 
-def _print_bestworst(movies, extremes):
+def _print_best_worst_movies(movies, extremes):
     """
     A utility command for the show_stats command.
     Receives a list with the title and rating of the
@@ -25,7 +28,7 @@ def _print_bestworst(movies, extremes):
         print(output_string[:-2])
 
 
-def _get_bestworse_ratings(rated_movies, highest):
+def _get_best_worst_ratings(rated_movies, highest):
     """
     A utility command for the show_stats command.
     From a list of tuples containing ratings and titles,
@@ -53,6 +56,31 @@ def _get_bestworse_ratings(rated_movies, highest):
     return extremes_rate_movies
 
 
+def _print_movie_data(movies):
+    """
+    A utility command to print movie data.
+    Receives a list of tuples (title, year, rating).
+    Prints a string with the info of each tuple.
+    """
+    for movie in movies:
+        title, year, rating = movie
+        print(f"{title} ({year}): {rating}")
+
+
+def _get_title_year_rating():
+    """
+    A utility command for extracting all the titles along
+    with the year and rating of each movie in the database.
+    Returns a list with tuples (title, year, rating).
+    """
+    movies = []
+    for movie_title, movie_attributes in MOVIE_DATA.items():
+        movie_data = (movie_title, movie_attributes['year'],
+                      movie_attributes['rating'])
+        movies.append(movie_data)
+    return movies
+
+
 def _get_rating_title():
     """
     A utility command for extracting all the titles and ratings
@@ -66,12 +94,11 @@ def _get_rating_title():
     return rating_movies
 
 
-def show_stats():
+def show_stats(): # Menu command 5
     """
     Print statistics about the movies in the database:
     average rating, median rating, titles with the highest
     and lowest rating.
-    Only reads, doesn't modify the database.
     """
 
     #   0. Informs the user when there are no stats to show
@@ -98,28 +125,28 @@ def show_stats():
                                   key=lambda rating: rating[0])
 
     #   5. Prints the movie(s) with highest rating
-    best_movies = _get_bestworse_ratings(sorted_ratings_title,
+    best_movies = _get_best_worst_ratings(sorted_ratings_title,
                                          highest=True)
-    _print_bestworst(best_movies, "Best")
+    _print_best_worst_movies(best_movies, "Best")
 
     #   4. Prints the movie(s) with lowest rating
-    worst_movies = _get_bestworse_ratings(sorted_ratings_title,
+    worst_movies = _get_best_worst_ratings(sorted_ratings_title,
                                           highest=False)
-    _print_bestworst(worst_movies, "Worst")
+    _print_best_worst_movies(worst_movies, "Worst")
 
 
-def random_movie():
+def random_movie(): # Menu command 6
     """
     Prints the title and rating of a random movie
     from the database.
     """
     rating_movies = _get_rating_title()
-    random_movie = random.choice(rating_movies)
-    print(f"Your movie for tonight: {random_movie[1]}, "
-          f"it's rated {random_movie[0]}")
+    _random_movie = random.choice(rating_movies)
+    print(f"Your movie for tonight: {_random_movie[1]}, "
+          f"it's rated {_random_movie[0]}")
 
 
-def search_movie():
+def search_movie(): # Menu command 7
     """
     Asks the user to enter a part of a movie name,
     and then searches all the movies in the database.
@@ -138,3 +165,33 @@ def search_movie():
 
     if not match_found:
         print("Movie matching search term not found")
+
+
+def list_movies(): # menu command 1
+    """
+    1. Prints a string indicating how many movies are stored
+    in the database (how many dicts are in the dict).
+    2. Parses the info from MOVIE_DATA,
+    serializes it into a string, and prints it.
+    """
+
+    print(f"{len(MOVIE_DATA)} movie(s) in total")
+
+    movies = _get_title_year_rating()
+
+    _print_movie_data(movies)
+
+
+def sort_by_rating(): # menu command 8
+    """
+    Fetches and sorts movies sorted by descending rating.
+    Prints all the movies and their ratings, in descending
+    order by the rating.
+    """
+    movies = _get_title_year_rating()
+
+    movies_sorted_desc_rating = sorted(movies,
+                            key= lambda movies: movies[2],
+                            reverse=True)
+
+    _print_movie_data(movies_sorted_desc_rating)

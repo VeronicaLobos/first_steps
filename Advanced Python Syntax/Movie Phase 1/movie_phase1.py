@@ -5,20 +5,21 @@ import movie_stats
 
 def command_dispatcher(user_input):
     """
-    Returns a value from a dictionary pairing the
-    menu options with the functions available to
-    the user in the CLI
+    Pairs the menu options (key) with the functions
+    available to the user in the CLI program (value).
+    Returns a function call.
     """
+    print("")
     commands = {
-        0: exit,  # tested
-        1: movie_storage.list_movies, # tested
-        2: movie_storage.add_movie, # tested
-        3: movie_storage.delete_movie, # tested
-        4: movie_storage.update_movie, # tested
-        5: movie_stats.show_stats, # tested
-        6: movie_stats.random_movie, # tested
-        7: movie_stats.search_movie, # tested
-        8: "Movies sorted by rating",
+        0: exit,  # movie_phase1
+        1: movie_stats.list_movies,  # movie_phase1
+        2: movie_storage.add_movie,  # movie_phase1
+        3: movie_storage.delete_movie,  # movie_phase1
+        4: movie_storage.update_movie,  # movie_phase1
+        5: movie_stats.show_stats,  # movie_phase1
+        6: movie_stats.random_movie,  # movie_phase1
+        7: movie_stats.search_movie,  # movie_phase1
+        8: movie_stats.sort_by_rating,  # movie_phase1
         9: "Movies sorted by year",
         10: "Filter movies",
                 }
@@ -60,6 +61,9 @@ def print_menu():
 
 
 def exit():
+    """
+    Prints a message and exist the CLI.
+    """
     print("Bye!")
     sys.exit()
 
@@ -67,16 +71,15 @@ def exit():
 def main():
     """
     A command line interface with a command_dispatcher
-    that performs SCRUM operations with a json file
-    1. Displays a title
+    that performs SCRUM operations with a JSON file.
+
+    1. Displays a program title
     2. Displays a menu with the operations available
     3. Requests and checks input from user
-    4. Executes a command
+    4. Executes a command based on input
     5. Menu is displayed again, asks for input again
     """
-    title = "********** My Movies Database **********"
-    print(title)
-
+    print("********** My Movies Database **********")
     while True:
         user_input = check_input()
         command_dispatcher(user_input)

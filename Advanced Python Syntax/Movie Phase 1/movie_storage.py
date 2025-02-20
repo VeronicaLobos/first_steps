@@ -1,8 +1,10 @@
 import handle_json
 
-
 """
-Preloads into a constant a dictionary of dictionaries
+This module contains commands that READ and WRITE
+a JSON file.
+
+Constant preloads nested dictionaries
 with the movie information in the database.
 """
 MOVIE_DATA = handle_json.load_json()
@@ -10,12 +12,19 @@ MOVIE_DATA = handle_json.load_json()
 
 def _update_database():
     """
-    A utility command for updating the database
+    A utility command for updating the database.
+    Overwrites the JSON file with the data stored
+    in the constant MOVIE_DATA.
     """
     handle_json.update_json(MOVIE_DATA)
 
 
 def _check_empty_dict():
+    """
+    A utility command for checking if there is
+    data stored in the dictionary/database, if so
+    returns True.
+    """
     if len(MOVIE_DATA) == 0:
         return True
     else:
@@ -35,9 +44,9 @@ def _movie_exists(movie_title):
 
 def _check_title():
     """
-    A utility command for checking the title
-    Keeps prompting for input
-    Returns a string
+    A utility command for checking correct input
+    for a movie's title. Keeps prompting for input.
+    Returns a string.
     """
     while True:
         movie_title = input("Enter movie name: ")
@@ -50,9 +59,9 @@ def _check_title():
 
 def _check_year():
     """
-    A utility command for checking the year
-    Keeps prompting for input
-    Returns an integer
+    A utility command for checking correct input
+    for a movie's release year. Keeps prompting for input.
+    Returns an integer.
     """
     while True:
         try:
@@ -70,44 +79,35 @@ def _check_year():
 
 def _check_rating():
     """
-    A utility command for checking the rating
-    Keeps prompting for input
+    A utility command for checking correct input
+    for a movie's rating. Keeps prompting for input.
     Returns a float, rounds to a single decimal
     """
     while True:
         try:
-            movie_rating = round(float(input("Enter new Movie rating: ")), 1)
+            movie_rating = round(float(input(
+                "Enter new Movie rating: ")), 1)
             if not 0.0 <= movie_rating <= 10.0:
-                print("Rating must be a valid number between 0.0 and 10.0")
+                print("Rating must be a valid number"
+                      "between 0.0 and 10.0")
                 continue
         except (ValueError, TypeError):
-            print("Rating must be a valid number between 0.0 and 10.0")
+            print("Rating must be a valid number"
+                  "between 0.0 and 10.0")
             continue
         break
     return movie_rating
 
 
-def list_movies():
-    """
-    1. Prints a string indicating how many movies are stored
-    in the database (how many dicts are in the dict).
-    2. Parses the info from MOVIE_DATA,
-    serializes it into a string, and prints it.
-    """
-
-    print(f"{len(MOVIE_DATA)} movie(s) in total")
-
-    for movie_title, movie_attributes in MOVIE_DATA.items():
-        movie_release_year = movie_attributes.get("year")
-        movie_rating = movie_attributes.get("rating")
-        print(f"{movie_title} ({movie_release_year}): {movie_rating}")
-
-
-def add_movie():
+def add_movie(): # Menu command 2
     """
     Adds a movie to the movie database.
-    CHeck if the movie already exists.
-    Creates a dictionary with the new movie data.
+    Checks if the movie already exists in the database.
+    If it doesn't exist, creates a dictionary
+    with the new movie data, and updates the database.
+    Checks if the movie was successfully added.
+    Prints a message informing the user of the resulting
+    operation.
     """
     movie_title = _check_title()
 
@@ -127,16 +127,20 @@ def add_movie():
             print("Something went wrong, movie not added")
 
 
-def delete_movie():
+def delete_movie(): # Menu command 3
     """
     Deletes a movie from the movie database.
-    Deletes the movie from the preloaded dict of dicts,
-    and updates the json file with it.
 
-    Prints a message to inform the user of the operation
-    result. Raises a KeyError if the movie cannot be found
+    Checks if there is data to delete, if so
+    Checks if the movie exists in the database, if so
+    Deletes the movie from the preloaded
+    dict of dicts, and updates the json file with it.
+    Raises a KeyError if the movie cannot be found
     in the database and thus, the operation cannot be
     performed (still same result).
+
+    Prints a message to inform the user of the operation
+    result.
     """
     if _check_empty_dict():
         print("Currently there are no movies in the database")
@@ -155,12 +159,19 @@ def delete_movie():
         print(f"Movie {movie_title} doesn't exist!")
 
 
-def update_movie():
+def update_movie(): # Menu command 4
     """
     Updates a movie rating from the movie database.
 
+    Checks if there is no data to update. Otherwise,
     Modifies the value in the preloaded dict of dicts,
     and then updates the json file with it.
+    Raises a KeyError if the movie cannot be found
+    in the database and thus, the operation cannot be
+    performed (still same result).
+
+    Prints a message to inform the user of the operation
+    result.
     """
     if _check_empty_dict():
         print("Currently there are no movies in the database")
