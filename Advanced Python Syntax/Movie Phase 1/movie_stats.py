@@ -8,6 +8,8 @@ a JSON file containing nested dictionaries.
 
 Constant preloads nested dictionaries with 
 the movie information in the database.
+Every function that modifies this global variable
+will update the database too.
 """
 MOVIE_DATA = handle_json.load_json()
 
@@ -96,40 +98,39 @@ def _get_rating_title():
 
 def show_stats(): # Menu command 5
     """
-    Print statistics about the movies in the database:
-    average rating, median rating, titles with the highest
-    and lowest rating.
-    """
+    Calculates and print statistics about the movies in
+    the database: average rating, median rating, titles
+    with the highest and lowest rating.
 
-    #   0. Informs the user when there are no stats to show
+    Informs the user when there are no stats to show
+    Makes a list with all the ratings in the database
+    Prints the average and median averages in the database
+    Makes a list of tuples with movie ratings and titles
+    Sorts the list of tuples from lowest to highest rating
+    Prints the movie(s) with the highest rating
+    Prints the movie(s) with the lowest rating
+    """
     if len(MOVIE_DATA) < 1:
         print("Currently there are no movies in the database.")
         return
 
-    #   1. Makes a list with all the ratings in the database
     ratings = []
     for movie in MOVIE_DATA.values():
         ratings.append(movie['rating'])
 
-    #   2. Prints the average and median averages in the database
     average_rating = statistics.mean(sorted(ratings))
     print(f"\nAverage rating: {average_rating}")
     median_rating = statistics.median(sorted(ratings))
     print(f"Median rating: {median_rating}")
 
-    #   3. Makes a list of tuples with movie ratings and titles
     rating_movies = _get_rating_title()
-
-    #   4. Sorts the list of tuples from lowest to highest rating
     sorted_ratings_title = sorted(rating_movies,
                                   key=lambda rating: rating[0])
 
-    #   5. Prints the movie(s) with highest rating
     best_movies = _get_best_worst_ratings(sorted_ratings_title,
                                          highest=True)
     _print_best_worst_movies(best_movies, "Best")
 
-    #   4. Prints the movie(s) with lowest rating
     worst_movies = _get_best_worst_ratings(sorted_ratings_title,
                                           highest=False)
     _print_best_worst_movies(worst_movies, "Worst")
@@ -195,3 +196,24 @@ def sort_by_rating(): # menu command 8
                             reverse=True)
 
     _print_movie_data(movies_sorted_desc_rating)
+
+
+def sort_by_year():
+    """
+    Fetches and sorts movies by release year.
+    Asks user to choose the sorting order.
+    Prints all the movies and their ratings, in descending
+    or ascending order (most recent or oldest) by year.
+    """
+    movies = _get_title_year_rating()
+
+    sorted_latest_first = True
+    if "n" in input("Do you want the latest movies first? "
+                    "(Y/N): ").lower():
+        sorted_latest_first = False
+
+    movies_sorted_year = sorted(movies,
+                                key= lambda movies: movies[1],
+                                reverse=sorted_latest_first)
+
+    _print_movie_data(movies_sorted_year)

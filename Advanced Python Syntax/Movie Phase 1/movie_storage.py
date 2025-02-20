@@ -98,6 +98,12 @@ def _check_rating():
         break
     return movie_rating
 
+"""
+note: list_movies() Menu command 1 moved to module
+movie_stats, since it shares utility commands with
+another command, sort_by_rating() Menu command 8
+"""
+
 
 def add_movie(): # Menu command 2
     """

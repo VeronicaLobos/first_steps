@@ -11,7 +11,7 @@ def command_dispatcher(user_input):
     """
     print("")
     commands = {
-        0: exit,  # movie_phase1
+        0: exit_my_movies,  # movie_phase1
         1: movie_stats.list_movies,  # movie_phase1
         2: movie_storage.add_movie,  # movie_phase1
         3: movie_storage.delete_movie,  # movie_phase1
@@ -20,7 +20,7 @@ def command_dispatcher(user_input):
         6: movie_stats.random_movie,  # movie_phase1
         7: movie_stats.search_movie,  # movie_phase1
         8: movie_stats.sort_by_rating,  # movie_phase1
-        9: "Movies sorted by year",
+        9: movie_stats.sort_by_year, # movie_phase1_bonus
         10: "Filter movies",
                 }
 
@@ -45,6 +45,10 @@ def check_input():
 
 
 def print_menu():
+    """
+    Prints a menu with the number corresponding to
+    the available commands.
+    """
     menu = ("\nMenu:\n"
             "0. Exit\n"
             "1. List movies\n"
@@ -60,9 +64,9 @@ def print_menu():
     print(menu)
 
 
-def exit():
+def exit_my_movies():
     """
-    Prints a message and exist the CLI.
+    Prints a message and exits the CLI.
     """
     print("Bye!")
     sys.exit()
