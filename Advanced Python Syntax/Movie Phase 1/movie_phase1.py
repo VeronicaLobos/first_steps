@@ -20,8 +20,8 @@ def command_dispatcher(user_input):
         6: movie_stats.random_movie,  # movie_phase1
         7: movie_stats.search_movie,  # movie_phase1
         8: movie_stats.sort_by_rating,  # movie_phase1
-        9: movie_stats.sort_by_year, # movie_phase1_bonus
-        10: "Filter movies",
+        9: movie_stats.sort_by_year, # movie_phase1_bonus_1
+        10: movie_stats.filter_movies, # movie_phase1_bonus_2
                 }
 
     return commands[user_input]()
@@ -29,6 +29,7 @@ def command_dispatcher(user_input):
 
 def check_input():
     """
+    Prints menu with available commands
     Asks user for input, a number between 0 and 10
     Else, will continue asking for a valid input
     Returns an integer

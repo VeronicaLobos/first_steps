@@ -118,9 +118,10 @@ def show_stats(): # Menu command 5
     for movie in MOVIE_DATA.values():
         ratings.append(movie['rating'])
 
-    average_rating = statistics.mean(sorted(ratings))
+    # movie_phase1 bonus3, round floats
+    average_rating = round(statistics.mean(sorted(ratings)), 2)
     print(f"\nAverage rating: {average_rating}")
-    median_rating = statistics.median(sorted(ratings))
+    median_rating = round(statistics.median(sorted(ratings)), 2)
     print(f"Median rating: {median_rating}")
 
     rating_movies = _get_rating_title()
@@ -217,3 +218,58 @@ def sort_by_year():
                                 reverse=sorted_latest_first)
 
     _print_movie_data(movies_sorted_year)
+
+
+def filter_movies():
+    """
+    Filters data from the database.
+
+    Asks user for filtering options: minimum rating,
+    start year, end year. If left blank, changes
+    variable to None. Handles ValueError.
+    Filtering criteria set to None is ignored.
+    Matching movies are appended to a list as tuples
+    containing title, year and rating.
+    Returns a list with tuples, or prints a message
+    indicating no matches were found (list is empty).
+    """
+    try:
+        min_rating_str = input("Enter minimum rating "
+                       "(leave blank for no minimum rating): ")
+        if min_rating_str:  # if it isn't empty
+            min_rating = float(min_rating_str) # convert to float
+        else:
+            min_rating = None # otherwise set to None
+
+        start_year_str = input("Enter start year "
+                       "(leave blank for no start year): ")
+        if start_year_str:
+            start_year = int(start_year_str)
+        else:
+            start_year = None
+
+        end_year_str = input("Enter end year "
+                     "(leave blank for no end year): ")
+        if end_year_str:
+            end_year = int(end_year_str)
+        else:
+            end_year = None
+    except ValueError("Please enter valid rating and/or year"):
+        return
+
+    filtered_movies = []
+    for movie_title, movie_attributes in MOVIE_DATA.items():
+        year = movie_attributes.get('year')
+        rating = movie_attributes.get('rating')
+
+        if min_rating is None or rating >= min_rating:
+            if start_year is None or year >= start_year:
+                if end_year is None or year <= end_year:
+                    filtered_movies.append((movie_title,
+                                        year, rating))
+
+    if filtered_movies:
+        print("Filtered Movies: ")
+        _print_movie_data(filtered_movies)
+    else:
+        print("No matches found")

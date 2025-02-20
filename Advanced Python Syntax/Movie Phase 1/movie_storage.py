@@ -85,6 +85,7 @@ def _check_rating():
     """
     while True:
         try:
+            # movie_phase1 bonus3, round floats
             movie_rating = round(float(input(
                 "Enter new Movie rating: ")), 1)
             if not 0.0 <= movie_rating <= 10.0:
@@ -108,6 +109,7 @@ another command, sort_by_rating() Menu command 8
 def add_movie(): # Menu command 2
     """
     Adds a movie to the movie database.
+
     Checks if the movie already exists in the database.
     If it doesn't exist, creates a dictionary
     with the new movie data, and updates the database.
