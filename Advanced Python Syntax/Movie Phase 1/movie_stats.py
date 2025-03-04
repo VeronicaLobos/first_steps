@@ -1,6 +1,7 @@
 import handle_json
 import statistics
 import random
+from handle_json import MOVIE_DATA
 
 """
 This module contains ONLY READ commands for 
@@ -11,7 +12,6 @@ the movie information in the database.
 Every function that modifies this global variable
 will update the database too.
 """
-MOVIE_DATA = handle_json.load_json()
 
 
 def _print_best_worst_movies(movies, extremes):

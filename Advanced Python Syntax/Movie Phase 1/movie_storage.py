@@ -1,4 +1,5 @@
 import handle_json
+from handle_json import MOVIE_DATA
 
 """
 This module contains commands that READ and WRITE
@@ -7,7 +8,6 @@ a JSON file.
 Constant preloads nested dictionaries
 with the movie information in the database.
 """
-MOVIE_DATA = handle_json.load_json()
 
 
 def _update_database():

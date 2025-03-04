@@ -65,3 +65,5 @@ def load_json(filepath=FILE_NAME):
     except json.JSONDecodeError:
         print(f"{filepath} is corrupted")
         return {}
+
+MOVIE_DATA = load_json()
