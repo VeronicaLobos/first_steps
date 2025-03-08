@@ -60,8 +60,8 @@ def read_file(filename):
             content = f.read()
         return content
     except FileNotFoundError:
-        return render_template('file_not_found.html', filename=filename)
         #render an html template instead of a plain message.
+        return render_template('file_not_found.html', filename=filename)
     except Exception as e:
         return f"File error: {str(e)}"
 """
