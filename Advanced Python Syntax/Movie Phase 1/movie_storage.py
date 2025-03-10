@@ -5,8 +5,10 @@ from handle_json import MOVIE_DATA
 This module contains commands that READ and WRITE
 a JSON file.
 
-Constant preloads nested dictionaries
+MOVIE_DATA preloads nested dictionaries
 with the movie information in the database.
+
+A utility command, _update_database(), 
 """
 
 
@@ -25,10 +27,7 @@ def _check_empty_dict():
     data stored in the dictionary/database, if so
     returns True.
     """
-    if len(MOVIE_DATA) == 0:
-        return True
-    else:
-        return False
+    return len(MOVIE_DATA) == 0
 
 
 def _movie_exists(movie_title):

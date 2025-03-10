@@ -11,15 +11,12 @@ movie_storage module.
 This program uses nested dictionaries and persistent data.
 The outer dictionary uses movie titles as keys, and each key
 maps to another dictionary containing movie attributes
-(year, rating). 
+(year, rating).
 """
 
 def update_json(updated_movie_data):
     """
-    Loads a json file containing data about movies in
-    writing mode.
-
-    The data will be stored in a constant in other modules.
+    Writes the dictionary updated_movie_data to the json file.
     """
     with open(file=FILE_NAME, mode='w',
               encoding="utf-8") as handle:
@@ -28,8 +25,7 @@ def update_json(updated_movie_data):
 
 def load_json(filepath=FILE_NAME):
     """
-    Loads a json file containing data about movies in
-    reading mode.
+    Loads a json file containing data about movies.
     
     Checks if the file exists. If it doesn't, creates
     and populates a new json file with example data.

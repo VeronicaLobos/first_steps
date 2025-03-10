@@ -1,16 +1,15 @@
-import handle_json
 import statistics
 import random
 from handle_json import MOVIE_DATA
 
 """
 This module contains ONLY READ commands for 
-a JSON file containing nested dictionaries.
+a JSON file containing nested dictionaries,
+which will print serialized info from the
+movie database.
 
-Constant preloads nested dictionaries with 
+MOVIE_DATA preloads nested dictionaries with 
 the movie information in the database.
-Every function that modifies this global variable
-will update the database too.
 """
 
 
@@ -94,6 +93,9 @@ def _get_rating_title():
         rating_movies.append((movie_attributes['rating'],
                               movie_title))
     return rating_movies
+
+    # return [(movie_attributes['rating'], movie_title) for movie_title, movie_attributes in MOVIE_DATA.items()]
+
 
 
 def show_stats(): # Menu command 5

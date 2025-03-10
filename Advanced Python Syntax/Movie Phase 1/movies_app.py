@@ -27,7 +27,7 @@ def command_dispatcher(user_input):
     return commands[user_input]()
 
 
-def check_input():
+def get_valid_user_input():
     """
     Prints menu with available commands
     Asks user for input, a number between 0 and 10
@@ -86,7 +86,7 @@ def main():
     """
     print("********** My Movies Database **********")
     while True:
-        user_input = check_input()
+        user_input = get_valid_user_input()
         command_dispatcher(user_input)
         input("\nPress enter to continue ")
 
