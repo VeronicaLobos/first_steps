@@ -1,3 +1,7 @@
+"""
+Small practice to learn about Flask and routes.
+"""
+
 from flask import Flask, request, make_response
 
 app = Flask(__name__)
@@ -57,7 +61,6 @@ def handle_params():
     greeting = request.args.get('greeting')
     name = request.args.get('name')
     return f'{greeting}, {name}!'
-
 
 
 if __name__ == '__main__':

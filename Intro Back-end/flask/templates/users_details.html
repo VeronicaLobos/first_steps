@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <ul>
+        {% for user, details in users.items() %}
+        <li>
+            {% if details['country'] == 'USA' %}
+                {{ user }} ({{ user|length }} chars) is {{ details['age'] }} years old from {{ details['country'] }} {{ details['flag'] }}. Special message for USA users: Welcome!
+            {% else %}
+                {{ user }} ({{ user|length }} chars) is {{ details['age'] }} years old from {{ details['country'] }} {{ details['flag'] }}.
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

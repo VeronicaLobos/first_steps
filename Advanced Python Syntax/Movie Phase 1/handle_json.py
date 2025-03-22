@@ -1,7 +1,7 @@
 import json
 import os
 
-FILE_NAME = "movies.json"
+FILE_NAME = "../../../Movie-Project-Phase2/movies.json"
 
 """This module contains functions to READ and WRITE the 
 movie data base (static JSON file). These are called by

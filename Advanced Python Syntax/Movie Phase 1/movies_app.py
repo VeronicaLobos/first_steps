@@ -10,6 +10,7 @@ def command_dispatcher(user_input):
     Returns a function call.
     """
     print("")
+
     commands = {
         0: exit_my_movies,  # movie_phase1
         1: movie_stats.list_movies,  # movie_phase1
@@ -24,7 +25,10 @@ def command_dispatcher(user_input):
         10: movie_stats.filter_movies, # movie_phase1_bonus_2
                 }
 
-    return commands[user_input]()
+    try:
+        return commands[user_input]()
+    except KeyError:
+        print(f"Choice currently not available")
 
 
 def get_valid_user_input():
@@ -38,10 +42,9 @@ def get_valid_user_input():
         try:
             print_menu()
             user_input = int(input("Enter choice (0-10): "))
-            assert 0 <= user_input <= 10
             return user_input
-        except (ValueError, AssertionError):
-            print("Invalid choice")
+        except ValueError:
+            print("Please enter a valid number")
             continue
 
 

@@ -1,3 +1,7 @@
+"""
+Small practice to learn about Flask, jinja2 and HTML templates.
+"""
+
 from flask import Flask, render_template, request
 from datetime import datetime
 import webbrowser
@@ -42,13 +46,18 @@ Add another template file under templates folder,
 call it form.html or whatever name you want.
 """
 
-@app.route('/greet')
-def greet():
-    return render_template('form.html')
+@app.route('/form')
+def greeter_form():
+    return render_template('greeter_form.html')
+
+
+@app.route('/googleform')
+def google_form():
+    return render_template('google_form.html')
 
 
 if __name__ == "__main__":
     url = 'http://127.0.0.1:5001/?name=Veronica'
-    url3 = 'http://127.0.0.1:5001/greet'
+    url3 = 'http://127.0.0.1:5001/form'
     webbrowser.open_new(url3)
     app.run(host='0.0.0.0', port=5001, debug=True)
