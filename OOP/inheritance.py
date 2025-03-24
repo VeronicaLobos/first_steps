@@ -34,7 +34,7 @@ class Car(ABC):
 """
 The following subclasses will copy Car's blueprint,
 and implement an instance variable to store fuel/energy capacity.
-The method drive is overriden to calculate the consumption rate
+The method drive is overridden to calculate the consumption rate
 based on the kind of combustible being used by the subclass.
 """
 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Information Result</title>
+</head>
+<body>
+    <h1>User Information:</h1>
+    {% if username and email %}
+        <p>Username: {{ username }}</p>
+        <p>Email: {{ email }}</p>
+    {% else %}
+        <p>No user information provided.</p>
+    {% endif %}
+    <br>
+    <a href="/">Go back to form</a>
+</body>
+</html>
