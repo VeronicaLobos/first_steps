@@ -24,7 +24,16 @@ This project is a Python-based application that manages a movie database.
 * The project fetches movie data from the OMDb API and stores it in either a JSON file (movies.json) or a CSV file (data/movies.csv) for persistent storage. 
 * It also includes a basic web page template to display movie information.
 
-<a href="https://github.com/VeronicaLobos/Masterblog">_Masterblog_: Flask</a>: WIP
+<a href="https://github.com/VeronicaLobos/Masterblog">_Masterblog_: Flask</a>:
+This program is a simple Flask-based web blog application. It allows users to:
+* View blog posts: Displayed on the main page (/).
+* Like blog posts: Increase the like count for a specific post (/like/<int:post_id>).
+* Add new blog posts: Create and publish new posts with author, title, date and content (/add).
+* Delete blog posts: Remove existing posts (/delete/<int:post_id>).
+* Update blog posts: Edit the content of existing posts (/update/<int:post_id>).
+* The application uses a JSON file (blog_posts.json) to store and manage the blog post data, with the help of the HandleJson class (presumably defined in storage.handle_json). It utilizes Flask's routing and templating features to render HTML pages and handle user interactions.
+
+_Masterblog API:_ Comming soon
 
 ## 🟢 Learning Path
 
