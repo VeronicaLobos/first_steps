@@ -34,9 +34,16 @@ def handle_books():
 
         # Return the new book data to the client
         return jsonify(new_book), 201
-    else:
-        # Handle the GET request
-        return jsonify(books)
+
+    elif request.method == 'GET':
+        author = request.args.get('author')
+        if author:
+            filtered_books = [book for book in books if book.get('author') == author]
+            if not filtered_books:
+                return jsonify({"error": "No books found for the given author"}), 404
+            return jsonify(filtered_books)
+        else:
+            return jsonify(books)
 
 
 def find_book_by_id(book_id):
