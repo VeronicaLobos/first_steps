@@ -1,0 +1,177 @@
+[
+    {
+        "id": 1,
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald"
+    },
+    {
+        "id": 2,
+        "title": "1984",
+        "author": "George Orwell"
+    },
+    {
+        "id": 3,
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+    },
+    {
+        "id": 4,
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen"
+    },
+    {
+        "id": 5,
+        "title": "Moby-Dick",
+        "author": "Herman Melville"
+    },
+    {
+        "id": 6,
+        "title": "One Hundred Years of Solitude",
+        "author": "Gabriel García Márquez"
+    },
+    {
+        "id": 7,
+        "title": "The Lord of the Rings",
+        "author": "J.R.R. Tolkien"
+    },
+    {
+        "id": 8,
+        "title": "Jane Eyre",
+        "author": "Charlotte Brontë"
+    },
+    {
+        "id": 9,
+        "title": "The Catcher in the Rye",
+        "author": "J.D. Salinger"
+    },
+    {
+        "id": 10,
+        "title": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky"
+    },
+    {
+        "id": 11,
+        "title": "The Adventures of Huckleberry Finn",
+        "author": "Mark Twain"
+    },
+    {
+        "id": 12,
+        "title": "Little Women",
+        "author": "Louisa May Alcott"
+    },
+    {
+        "id": 13,
+        "title": "The Hobbit",
+        "author": "J.R.R. Tolkien"
+    },
+    {
+        "id": 14,
+        "title": "Wuthering Heights",
+        "author": "Emily Brontë"
+    },
+    {
+        "id": 15,
+        "title": "Frankenstein",
+        "author": "Mary Shelley"
+    },
+    {
+        "id": 16,
+        "title": "The Odyssey",
+        "author": "Homer"
+    },
+    {
+        "id": 17,
+        "title": "The Scarlet Letter",
+        "author": "Nathaniel Hawthorne"
+    },
+    {
+        "id": 18,
+        "title": "Dracula",
+        "author": "Bram Stoker"
+    },
+    {
+        "id": 19,
+        "title": "The Picture of Dorian Gray",
+        "author": "Oscar Wilde"
+    },
+    {
+        "id": 20,
+        "title": "Alice's Adventures in Wonderland",
+        "author": "Lewis Carroll"
+    },
+    {
+        "id": 21,
+        "title": "The Shining",
+        "author": "Stephen King"
+    },
+    {
+        "id": 22,
+        "title": "The Handmaid's Tale",
+        "author": "Margaret Atwood"
+    },
+    {
+        "id": 23,
+        "title": "Beloved",
+        "author": "Toni Morrison"
+    },
+    {
+        "id": 24,
+        "title": "The Road",
+        "author": "Cormac McCarthy"
+    },
+    {
+        "id": 25,
+        "title": "The Book Thief",
+        "author": "Markus Zusak"
+    },
+    {
+        "id": 26,
+        "title": "Dune",
+        "author": "Frank Herbert"
+    },
+    {
+        "id": 27,
+        "title": "The Hitchhiker's Guide to the Galaxy",
+        "author": "Douglas Adams"
+    },
+    {
+        "id": 28,
+        "title": "The Color Purple",
+        "author": "Alice Walker"
+    },
+    {
+        "id": 29,
+        "title": "Slaughterhouse-Five",
+        "author": "Kurt Vonnegut"
+    },
+    {
+        "id": 30,
+        "title": "The Alchemist",
+        "author": "Paulo Coelho"
+    },
+    {
+        "id": 31,
+        "title": "The Count of Monte Cristo",
+        "author": "Alexandre Dumas"
+    },
+    {
+        "id": 32,
+        "title": "Les Misérables",
+        "author": "Victor Hugo"
+    },
+    {
+        "id": 33,
+        "title": "Catch-22",
+        "author": "Joseph Heller"
+    },
+    {
+        "id": 34,
+        "title": "A Song of Ice and Fire",
+        "author": "George R.R. Martin"
+    },
+    {
+        "id": 35,
+        "title": "Harry Potter and the Sorcerer's Stone",
+        "author": "J.K. Rowling"
+    }
+]

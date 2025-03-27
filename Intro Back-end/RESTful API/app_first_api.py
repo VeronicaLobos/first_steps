@@ -1,13 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
+import json
+import os
 import webbrowser
+from handle_json import HandleJson
 
 app = Flask(__name__)
 
-books = [
-    {"id": 1, "title": "The Great Gatsby", "author": "F. Scott Fitzgerald"},
-    {"id": 2, "title": "1984", "author": "George Orwell"},
-    {"id": 3, "title": "To Kill a Mockingbird", "author": "Harper Lee"}
-]
 
 ##  Data Validation
 
@@ -15,6 +13,15 @@ def validate_book_data(data):
     if "title" not in data or "author" not in data:
         return False
     return True
+
+
+def _jsonify_tilde(filtered_books):
+    """
+    A utility function that substitutes jsonify()
+    when the database contains non-ASCII characters.
+    """
+    json_str = json.dumps(filtered_books, ensure_ascii=False, indent=4)
+    return Response(json_str, mimetype='application/json; charset=utf-8')
 
 
 @app.route('/api/books', methods=['GET', 'POST'])
@@ -41,13 +48,23 @@ def handle_books():
             filtered_books = [book for book in books if book.get('author') == author]
             if not filtered_books:
                 return jsonify({"error": "No books found for the given author"}), 404
-            return jsonify(filtered_books)
+            return _jsonify_tilde(filtered_books)
+
         else:
-            return jsonify(books)
+            page = int(request.args.get('page', 1))
+            limit = int(request.args.get('limit', 5))
+
+            start_index = (page - 1) * limit
+            end_index = start_index + limit
+
+            paginated_books = books[start_index:end_index]
+
+            return _jsonify_tilde(paginated_books)
 
 
-def find_book_by_id(book_id):
-  """ Find the book with the id `book_id`.
+def _find_book_by_id(book_id):
+  """
+  Find the book with the id `book_id`.
   If there is no book with this id, return None. """
   book = [book for book in books if book['id'] == book_id]
   if len(book) == 0:
@@ -58,7 +75,7 @@ def find_book_by_id(book_id):
 @app.route('/api/books/<int:id>', methods=['PUT'])
 def handle_book(id):
     # Find the book with the given ID
-    book = find_book_by_id(id)
+    book = _find_book_by_id(id)
 
     # If the book wasn't found, return a 404 error
     if book is None:
@@ -68,14 +85,17 @@ def handle_book(id):
     new_data = request.get_json()
     book.update(new_data)
 
+    # Update the database
+    database.save_posts_to_json(books)
+
     # Return the updated book
-    return jsonify(book)
+    return _jsonify_tilde(book)
 
 
 @app.route('/api/books/<int:id>', methods=['DELETE'])
 def delete_book(id):
     # Find the book with the given ID
-    book = find_book_by_id(id)
+    book = _find_book_by_id(id)
 
     # If the book wasn't found, return a 404 error
     if book is None:
@@ -85,7 +105,7 @@ def delete_book(id):
     books.remove(book)
 
     # Return the deleted book
-    return jsonify(book)
+    return _jsonify_tilde(book)
 
 
 ##  Error Handling
@@ -101,5 +121,9 @@ def method_not_allowed_error(error):
 
 
 if __name__ == "__main__":
+    file_path = os.path.join('./data', 'books.json')
+    database = HandleJson(file_path)
+    books = database.load_posts_from_json()
+
     webbrowser.open_new("http://127.0.0.1:5001/api/books")
     app.run(host="0.0.0.0", port=5001, debug=True)
